@@ -31,15 +31,15 @@ void cLogger::_writeToLog( const QString &p_qsMessage )
 
 void cLogger::storeUserLogin( const QString &p_qsUserName )
 {
-    _writeToLog( QString("User: <%1> logged in at %2").arg(p_qsUserName).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")) );
+    _writeToLog( QString("%1 - User: <%2> logged in").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(p_qsUserName) );
 }
 
 void cLogger::storeApplicationStarted( const QString &p_qsUserName )
 {
-    _writeToLog( QString("User: <%1> started the application at %2").arg(p_qsUserName).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")) );
+    _writeToLog( QString("%1 - User: <%2> started the application").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(p_qsUserName) );
 }
 
 void cLogger::storeApplicationHalted( const QString &p_qsUserName )
 {
-    _writeToLog( QString("User: <%1> halted the application at %2").arg(p_qsUserName).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")) );
+    _writeToLog( QString("%1 - User: <%2> halted the application").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(p_qsUserName) );
 }

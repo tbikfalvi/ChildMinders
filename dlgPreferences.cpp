@@ -13,13 +13,13 @@ cDlgPreferences::cDlgPreferences( QWidget *p_poParent )
     m_poPreferencesAction = new QAction( tr( "Edit Preferences" ), this );
     connect( m_poPreferencesAction, SIGNAL( triggered() ), this, SLOT( show() ) );
 
-    m_poQuitAction = new QAction( tr( "Quit" ), this );
-    connect( m_poQuitAction, SIGNAL( triggered() ), qApp, SLOT( quit() ) );
+//    m_poQuitAction = new QAction( tr( "Quit" ), this );
+//    connect( m_poQuitAction, SIGNAL( triggered() ), qApp, SLOT( quit() ) );
 
     m_poTrayIconMenu = new QMenu( this );
     m_poTrayIconMenu->addAction( m_poPreferencesAction );
-    m_poTrayIconMenu->addSeparator();
-    m_poTrayIconMenu->addAction( m_poQuitAction );
+//    m_poTrayIconMenu->addSeparator();
+//    m_poTrayIconMenu->addAction( m_poQuitAction );
 
     m_poTrayIcon = new QSystemTrayIcon( this );
     m_poTrayIcon->setContextMenu( m_poTrayIconMenu );

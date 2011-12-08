@@ -5,7 +5,7 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 
-#include "ui_dlgpreferences.h"
+#include "../ChildMinders-build-desktop/ui_dlgpreferences.h"
 
 class cDlgPreferences : public QDialog, private Ui::dlgPreferences
 {
