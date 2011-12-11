@@ -22,7 +22,7 @@ protected:
 private:
     cDlgPreferences *m_poMainDlg;
     int              m_inTimerId;
-    QString          m_qsUserName;
+    QString          m_qsIniUserName;
     QString          m_qsFileName;
 };
 
