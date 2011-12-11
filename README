@@ -4,6 +4,8 @@ Application for controlling your children PC activity.
 
 Branch-ek:
 
-	- Development:		Main line for development branch. Any new feature or version derived from this branch.
-	- Release:		Main line for releasing the new version. Includes the neccessary dlls and other files.
-	- Version:		Main line for different versions. Derived from Development branch. Contains the source code only for specific version.
+    - Development:          Main line for development branch. Any new feature or version derived from this branch.
+        -- UserNameToIni        All user registered in Windows has it's unique part in ini file. Displayed user name can be modified on Preferences dialog, stored in ini file. Logging format modified. Format: Date Tabulator [User login name] Tabulator Action description
+    - Release:              Main line for releasing the new version. Includes the neccessary dlls and other files.
+    - Version:              Main line for different versions. Derived from Development branch. Contains the source code only for specific version.
+        -- Version_1_0_0        Base version for application, including base logging to text file (childminders.log) using simple ini file to store actual user login name.
