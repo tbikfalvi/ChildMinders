@@ -30,8 +30,19 @@ private:
 
     QString                 m_qsUserName;
 
+    bool                    m_bChangedGeneral;
+    bool                    m_bChangedLogging;
+
 private slots:
 
+
+private slots:
+    void on_pbApplyLogging_clicked();
+    void on_pbApplyGeneral_clicked();
+    void on_checkBox_clicked();
+    void on_chkLogToFile_clicked();
+    void on_ledDisplayName_textChanged(QString );
+    void on_show();
 };
 
 #endif

@@ -1,3 +1,17 @@
+//====================================================================================
+//
+// Child Minders alkalmazas (c) Pagony Multimedia Studio Bt - 2011
+//
+//====================================================================================
+//
+// Filename    : clogger.cpp
+// AppVersion  : 1.0
+// FileVersion : 1.0
+// Author      : Bikfalvi Tamas
+//
+//====================================================================================
+// Source file for logging class.
+//====================================================================================
 
 #include <QFile>
 #include <QTextStream>
@@ -24,7 +38,7 @@ void cLogger::_writeToLog( const QString &p_qsMessage )
         return;
 
     QTextStream out(&file);
-    out << p_qsMessage << "\n";
+    out << _currentDateTime() << "\t" << p_qsMessage << "\n";
 
     file.close();
 }
@@ -36,15 +50,15 @@ QString cLogger::_currentDateTime() const
 
 void cLogger::storeUserLogin( const QString &p_qsUserName )
 {
-    _writeToLog( QString("%1\t%2\tUser logged in").arg(_currentDateTime()).arg(p_qsUserName) );
+    _writeToLog( QString("%1\tUser logged in").arg(p_qsUserName) );
 }
 
 void cLogger::storeApplicationStarted()
 {
-    _writeToLog( QString("%1\t\tApplication started").arg(_currentDateTime()) );
+    _writeToLog( QString("\tApplication started") );
 }
 
 void cLogger::storeApplicationHalted( const QString &p_qsUserName )
 {
-    _writeToLog( QString("%1\t%2\tApplication stopped").arg(_currentDateTime()).arg(p_qsUserName) );
+    _writeToLog( QString("%1\tApplication stopped").arg(p_qsUserName) );
 }
