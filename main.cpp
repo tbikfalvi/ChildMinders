@@ -1,3 +1,17 @@
+//====================================================================================
+//
+// Child Minders alkalmazas (c) Pagony Multimedia Studio Bt - 2011
+//
+//====================================================================================
+//
+// Filename    : main.cpp
+// AppVersion  : 1.0
+// FileVersion : 1.0
+// Author      : Bikfalvi Tamas
+//
+//====================================================================================
+// Main file for childminders application.
+//====================================================================================
 
 #include <QtGui>
 #include <QApplication>
@@ -45,7 +59,7 @@ int main(int argc, char *argv[])
         }
         if( !boSysTrayFound )
         {
-//            throw cSevException( cSeverity::ERROR, "Couldn't detect any system tray on this system." );
+//            throw Exception( "Couldn't detect any system tray on this system." );
         }
 
         cMainApplication::setQuitOnLastWindowClosed( false );

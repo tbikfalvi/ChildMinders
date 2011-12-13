@@ -18,6 +18,7 @@
 
 #include <QString>
 #include <QSettings>
+#include <QDateTime>
 
 class cPreferences
 {
@@ -34,6 +35,9 @@ public:
 
     QString         getCurrentUser() const;
     void            setCurrentUser( const QString &p_qsUserName, bool p_boSaveNow = false );
+    QString         getUserDisplayName( const QString &p_qsUserName ) const;
+    QDateTime       getUserLastLogin( const QString &p_qsUserName ) const;
+    void            setUserData( const QString &p_qsUserName, const QString &p_qsUserDisplayName, const QDateTime &qdtLastLogin ) const;
 
 private:
     QString         m_qsFileName;

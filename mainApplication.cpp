@@ -1,3 +1,18 @@
+//====================================================================================
+//
+// Child Minders alkalmazas (c) Pagony Multimedia Studio Bt - 2011
+//
+//====================================================================================
+//
+// Filename    : mainApplication.cpp
+// AppVersion  : 1.0
+// FileVersion : 1.0
+// Author      : Bikfalvi Tamas
+//
+//====================================================================================
+// Base application class for childminders.
+//====================================================================================
+
 
 #include <QString>
 
@@ -9,7 +24,7 @@ cMainApplication::cMainApplication( int &argc, char **argv ) : QApplication( arg
 {
     m_poMainDlg     = NULL;
     m_inTimerId     = 0;
-    m_qsUserName    = "";
+    m_qsIniUserName = "";
 
     connect( this, SIGNAL( aboutToQuit() ), this, SLOT( endSession() ) );
 }
@@ -20,9 +35,16 @@ cMainApplication::~cMainApplication()
 
 void cMainApplication::startSession( cDlgPreferences *p_poMainDlg ) throw()
 {
+    g_obLog->storeApplicationStarted();
+
     m_poMainDlg = p_poMainDlg;
-    m_qsUserName = g_poPrefs->getCurrentUser();
-    g_obLog->storeApplicationStarted( m_qsUserName );
+    m_qsIniUserName = g_poPrefs->getCurrentUser();
+
+    QString qsWinUserName = m_poMainDlg->currentUserName();
+
+    m_poMainDlg->setGeneralTabData( qsWinUserName,
+                                    g_poPrefs->getUserDisplayName( qsWinUserName ),
+                                    g_poPrefs->getUserLastLogin( qsWinUserName ) );
 
     m_inTimerId = startTimer( 1000 );
 }
@@ -30,7 +52,7 @@ void cMainApplication::startSession( cDlgPreferences *p_poMainDlg ) throw()
 void cMainApplication::endSession() throw()
 {
     killTimer( m_inTimerId );
-    g_obLog->storeApplicationHalted( m_qsUserName );
+    g_obLog->storeApplicationHalted( g_poPrefs->getUserDisplayName( m_qsIniUserName ) );
 }
 
 void cMainApplication::timerEvent ( QTimerEvent * )
@@ -41,11 +63,16 @@ void cMainApplication::timerEvent ( QTimerEvent * )
     // and log current user's login
     QString qsWinUserName = m_poMainDlg->currentUserName();
 
-    if( m_qsUserName.compare( qsWinUserName ) )
+    if( m_qsIniUserName.compare( qsWinUserName ) )
     {
-        g_poPrefs->setCurrentUser( qsWinUserName, true );
-        m_qsUserName = qsWinUserName;
-        g_obLog->storeUserLogin( m_qsUserName );
+        m_qsIniUserName = qsWinUserName;
+
+        g_obLog->storeUserLogin( g_poPrefs->getUserDisplayName( m_qsIniUserName ) );
+        g_poPrefs->setCurrentUser( m_qsIniUserName, true );
+        g_poPrefs->setUserData( m_qsIniUserName, "", QDateTime::currentDateTime() );
+        m_poMainDlg->setGeneralTabData( m_qsIniUserName,
+                                        g_poPrefs->getUserDisplayName( m_qsIniUserName ),
+                                        g_poPrefs->getUserLastLogin( m_qsIniUserName ) );
     }
 }
 
