@@ -17,6 +17,8 @@ public:
     void                    setIconToolTip( const QString &p_qsToolTip );
     QString                 currentUserName() const;
 
+    void                    setGeneralTabData( const QString &p_qsLoginName, const QString &p_qsDisplayName, const QDateTime &p_qdtLastLogin );
+
 public slots:
     virtual void accept();
 
@@ -30,11 +32,10 @@ private:
 
     QString                 m_qsUserName;
 
+    bool                    m_bDataChanged;
+
     bool                    m_bChangedGeneral;
     bool                    m_bChangedLogging;
-
-private slots:
-
 
 private slots:
     void on_pbApplyLogging_clicked();
@@ -42,7 +43,8 @@ private slots:
     void on_checkBox_clicked();
     void on_chkLogToFile_clicked();
     void on_ledDisplayName_textChanged(QString );
-    void on_show();
+    void showEvent(QShowEvent *event);
+
 };
 
 #endif

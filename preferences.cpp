@@ -87,11 +87,11 @@ void cPreferences::setCurrentUser( const QString &p_qsUserName, bool p_boSaveNow
 QString cPreferences::getUserDisplayName( const QString &p_qsUserName ) const
 {
     QSettings   obPrefFile( m_qsFileName, QSettings::IniFormat );
-    QString     qsDisplayName = "";
+    QString     qsDisplayName = p_qsUserName;
 
     if( obPrefFile.status() == QSettings::NoError )
     {
-        qsDisplayName = obPrefFile.value( QString( "%1/DisplayName" ).arg(p_qsUserName), "" ).toString();
+        qsDisplayName = obPrefFile.value( QString( "%1/DisplayName" ).arg(p_qsUserName), p_qsUserName ).toString();
     }
     return qsDisplayName;
 }
@@ -103,7 +103,7 @@ QDateTime cPreferences::getUserLastLogin( const QString &p_qsUserName ) const
 
     if( obPrefFile.status() == QSettings::NoError )
     {
-        qdtLastLogin = QDateTime::fromString( obPrefFile.value( QString( "%1/LastLogin" ).arg(p_qsUserName), "" ).toString(), "yyyy.MM.dd. H:mm:ss" );
+        qdtLastLogin = QDateTime::fromString( obPrefFile.value( QString( "%1/LastLogin" ).arg(p_qsUserName), "2000.01.01. 0:00:00" ).toString(), "yyyy.MM.dd. H:mm:ss" );
     }
     return qdtLastLogin;
 }
@@ -112,7 +112,8 @@ void cPreferences::setUserData( const QString &p_qsUserName, const QString &p_qs
 {
     QSettings   obPrefFile( m_qsFileName, QSettings::IniFormat );
 
-    obPrefFile.setValue( QString( "%1/DisplayName" ).arg(p_qsUserName), p_qsUserDisplayName );
+    if( p_qsUserDisplayName.length() )
+        obPrefFile.setValue( QString( "%1/DisplayName" ).arg(p_qsUserName), p_qsUserDisplayName );
     obPrefFile.setValue( QString( "%1/LastLogin" ).arg(p_qsUserName), qdtLastLogin.toString( "yyyy.MM.dd. H:mm:ss" ) );
 }
 

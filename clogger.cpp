@@ -18,6 +18,7 @@
 #include <QDateTime>
 #include <QTranslator>
 
+#include "childminders.h"
 #include "clogger.h"
 
 cLogger::cLogger()
@@ -56,6 +57,7 @@ void cLogger::storeUserLogin( const QString &p_qsUserName )
 void cLogger::storeApplicationStarted()
 {
     _writeToLog( QString("\tApplication started") );
+    g_poPrefs->setCurrentUser( "", true );
 }
 
 void cLogger::storeApplicationHalted( const QString &p_qsUserName )

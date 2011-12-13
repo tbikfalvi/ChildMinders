@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         }
         if( !boSysTrayFound )
         {
-//            throw cSevException( cSeverity::ERROR, "Couldn't detect any system tray on this system." );
+//            throw Exception( "Couldn't detect any system tray on this system." );
         }
 
         cMainApplication::setQuitOnLastWindowClosed( false );

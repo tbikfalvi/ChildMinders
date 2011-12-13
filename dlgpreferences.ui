@@ -160,7 +160,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QCheckBox" name="checkBox">
+          <widget class="QCheckBox" name="chkDatabase">
            <property name="enabled">
             <bool>false</bool>
            </property>
