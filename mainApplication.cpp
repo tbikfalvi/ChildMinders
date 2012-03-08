@@ -42,6 +42,11 @@ void cMainApplication::startSession( cDlgPreferences *p_poMainDlg ) throw()
 
     QString qsWinUserName = m_poMainDlg->currentUserName();
 
+    if( !g_poPrefs->getUserList().contains( qsWinUserName ) )
+    {
+        g_poPrefs->addUserToList( qsWinUserName );
+    }
+
     m_poMainDlg->setGeneralTabData( qsWinUserName,
                                     g_poPrefs->getUserDisplayName( qsWinUserName ),
                                     g_poPrefs->getUserLastLogin( qsWinUserName ) );

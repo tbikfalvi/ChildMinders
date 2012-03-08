@@ -19,6 +19,7 @@
 #include <QString>
 #include <QSettings>
 #include <QDateTime>
+#include <QStringList>
 
 class cPreferences
 {
@@ -38,10 +39,14 @@ public:
     QString         getUserDisplayName( const QString &p_qsUserName ) const;
     QDateTime       getUserLastLogin( const QString &p_qsUserName ) const;
     void            setUserData( const QString &p_qsUserName, const QString &p_qsUserDisplayName, const QDateTime &qdtLastLogin ) const;
+    QStringList     getUserList() const;
+    void            addUserToList( const QString &p_qsUserName );
+    void            removeUserFromList( const QString &p_qsUserName );
 
 private:
     QString         m_qsFileName;
     QString         m_qsCurrentUser;
+    QStringList     m_qslUsersList;
 
     void init();
 };

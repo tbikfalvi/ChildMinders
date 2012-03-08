@@ -33,8 +33,10 @@ cPreferences::~cPreferences()
 
 void cPreferences::init()
 {
-    m_qsFileName            = "";
-    m_qsCurrentUser         = "";
+    m_qsFileName        = "";
+    m_qsCurrentUser     = "";
+
+    m_qslUsersList.clear();
 }
 
 void cPreferences::setFileName( const QString &p_qsFileName )
@@ -58,6 +60,12 @@ void cPreferences::loadConfFileSettings()
     else
     {
         m_qsCurrentUser = obPrefFile.value( QString::fromAscii( "Logging/CurrentUser" ), "" ).toString();
+        QString m_qsUser = obPrefFile.value( QString::fromAscii( "Users" ), "" ).toString();
+
+        if( m_qsUser.length() > 0 )
+        {
+            m_qslUsersList = m_qsUser.split( QChar('#') );
+        }
     }
 }
 
@@ -66,6 +74,7 @@ void cPreferences::save()
     QSettings  obPrefFile( m_qsFileName, QSettings::IniFormat );
 
     obPrefFile.setValue( QString::fromAscii( "Logging/CurrentUser" ), m_qsCurrentUser );
+    obPrefFile.setValue( QString::fromAscii( "Users" ), m_qslUsersList.join( QChar('#') ) );
 }
 
 QString cPreferences::getCurrentUser() const
@@ -115,5 +124,30 @@ void cPreferences::setUserData( const QString &p_qsUserName, const QString &p_qs
     if( p_qsUserDisplayName.length() )
         obPrefFile.setValue( QString( "%1/DisplayName" ).arg(p_qsUserName), p_qsUserDisplayName );
     obPrefFile.setValue( QString( "%1/LastLogin" ).arg(p_qsUserName), qdtLastLogin.toString( "yyyy.MM.dd. H:mm:ss" ) );
+}
+
+QStringList cPreferences::getUserList() const
+{
+    return m_qslUsersList;
+}
+
+void cPreferences::addUserToList( const QString &p_qsUserName )
+{
+    if( m_qslUsersList.contains( p_qsUserName, Qt::CaseInsensitive ) )
+        return;
+
+    m_qslUsersList << p_qsUserName;
+
+    save();
+}
+
+void cPreferences::removeUserFromList( const QString &p_qsUserName )
+{
+    if( !m_qslUsersList.contains( p_qsUserName, Qt::CaseInsensitive ) )
+        return;
+
+    m_qslUsersList.removeAt( m_qslUsersList.indexOf( p_qsUserName ) );
+
+    save();
 }
 

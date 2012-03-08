@@ -46,6 +46,20 @@ cDlgPreferences::cDlgPreferences( QWidget *p_poParent )
     m_poTrayIcon->setVisible( true );
     m_poTrayIcon->setToolTip( tr("Child minders application\nTo protect you and your children ...") );
 
+    QStringList qslUserList = g_poPrefs->getUserList();
+
+    for( int i=0; i<qslUserList.size(); i++ )
+    {
+        QCheckBox   *pTemp = new QCheckBox( qslUserList.at(i), this );
+        pTemp->setChecked( true );
+        if( g_poPrefs->getCurrentUser().compare(qslUserList.at(i)) == 0 )
+        {
+            pTemp->setEnabled( false );
+        }
+
+        layoutUsers->insertWidget( 0, pTemp );
+    }
+
     m_bDataChanged = false;
 
     m_bChangedGeneral = false;

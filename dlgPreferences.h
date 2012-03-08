@@ -4,6 +4,8 @@
 #include <QAction>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QCheckBox>
+#include <vector>
 
 #include "../ChildMinders-build-desktop/ui_dlgpreferences.h"
 
@@ -23,19 +25,21 @@ public slots:
     virtual void accept();
 
 private:
-    QAction                *m_poPreferencesAction;
-    QAction                *m_poTasksAction;
-    QAction                *m_poQuitAction;
+    QAction                 *m_poPreferencesAction;
+    QAction                 *m_poTasksAction;
+    QAction                 *m_poQuitAction;
 
-    QSystemTrayIcon        *m_poTrayIcon;
-    QMenu                  *m_poTrayIconMenu;
+    QSystemTrayIcon         *m_poTrayIcon;
+    QMenu                   *m_poTrayIconMenu;
 
-    QString                 m_qsUserName;
+    QString                  m_qsUserName;
 
-    bool                    m_bDataChanged;
+    bool                     m_bDataChanged;
 
-    bool                    m_bChangedGeneral;
-    bool                    m_bChangedLogging;
+    bool                     m_bChangedGeneral;
+    bool                     m_bChangedLogging;
+
+    std::vector<QCheckBox*> *m_vCheckUsers;
 
 private slots:
     void on_pbApplyLogging_clicked();
